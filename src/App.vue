@@ -1,26 +1,68 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app id="inspire">
+    <v-app-bar image="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg" dark prominent>
+
+      <v-spacer></v-spacer>
+
+      <v-tabs color="white" centered>
+        <v-tab v-for="link in links" :key="link.tekst" :text="link.tekst" :to="link.lokacija" class="text-white"
+          :class="{ 'active-link': $route.path === link.lokacija }"></v-tab>
+      </v-tabs>
+      <v-spacer></v-spacer>
+
+    </v-app-bar>
+
+    <v-main>
+      <v-container>
+
+        <v-sheet min-height="70vh" class="sheet">
+          <router-view></router-view>
+
+        </v-sheet>
+
+      </v-container>
+      <FooterView></FooterView>
+    </v-main>
+  </v-app>
+
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
 
+<script>
+import FooterView from '@/views/FooterView.vue';
 export default {
-  name: 'App',
   components: {
-    HelloWorld
-  }
+    FooterView
+  },
+  data: () => ({
+    links: [
+      {
+        'tekst': 'Početna',
+        'lokacija': '/'
+      },
+      {
+        'tekst': 'O Pythonu',
+        'lokacija': '/opythonu'
+      },
+      {
+        'tekst': 'Kontakt',
+        'lokacija': '/kontakt'
+      },
+    ],
+
+  }),
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.active-link {
+  border-bottom: 2px solid white;
+}
+
+
+
+.sheet {
+  padding: 10;
+  background-color:whitesmoke
 }
 </style>
